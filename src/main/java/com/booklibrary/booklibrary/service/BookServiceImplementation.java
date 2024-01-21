@@ -1,4 +1,5 @@
 package com.booklibrary.booklibrary.service;
+import com.booklibrary.booklibrary.model.Author;
 import com.booklibrary.booklibrary.model.Book;
 import com.booklibrary.booklibrary.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.util.Optional;
 import static java.lang.Boolean.*;
 
 @Service
-public class BookServiceImplementation implements BookService{
+public class BookServiceImplementation implements BookService {
 
 
     private final BookRepository bookRepository;
@@ -23,18 +24,25 @@ public class BookServiceImplementation implements BookService{
     public List<Book> findAllBooks() {
         return bookRepository.findAll();
     }
+
     @Transactional(readOnly = true)
     public Optional<Book> findAllBooksByAuthorId(Long id) {
         Optional<Book> book = bookRepository.findAllBooksByAuthorId(id);
 
         if (book.isPresent()) {
             return book;
-        }
-        else throw new IllegalStateException("No books with author id: " + id + " were found");
+        } else throw new IllegalStateException("No books with author id: " + id + " were found");
     }
 
     @Override
-    public Book addBook(Book book) { return bookRepository.save(book); }
+    public Book addBook(Book book) {
+
+        if (book == null) {
+            throw new IllegalStateException("Wrong input");
+        }
+
+        return bookRepository.save(book);
+    }
 
     @Transactional
     @Override
@@ -46,19 +54,20 @@ public class BookServiceImplementation implements BookService{
             existingBook = book;
 
             return bookRepository.save(existingBook);
-        }
-        else throw new IllegalStateException("Book with id: " + id + " was not found");
+        } else throw new IllegalStateException("Book with id: " + id + " was not found");
     }
 
     @Transactional
     @Override
     public Boolean deleteBook(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
 
-        if (bookRepository.findById(id).isPresent()) {
-            bookRepository.deleteById(id);
-            return TRUE;
+        if (book.isEmpty()) {
+            throw new IllegalStateException("Book with id: " + id + "was not found");
         }
-        throw new IllegalStateException("Book with id" + id + " was not found");
+
+        bookRepository.deleteById(id);
+        return TRUE;
     }
 
     @Transactional(readOnly = true)

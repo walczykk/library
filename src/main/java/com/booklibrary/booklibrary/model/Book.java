@@ -1,6 +1,7 @@
 package com.booklibrary.booklibrary.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     @NotNull
     private String name;
 
@@ -25,9 +27,8 @@ public class Book {
     @JoinColumn(name = "author_id", nullable = true)
     private Author author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "publishing_house_id", nullable = true)
-    private PublishingHouse publishingHouse;
+    @NotNull
+    private String publishingHouse;
 
     private LocalDate releaseDate;
 

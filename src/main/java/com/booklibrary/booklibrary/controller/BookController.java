@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/library/books")
 public class BookController {
 
-    BookService bookService;
+    private final BookService bookService;
 
     @Autowired
     public BookController(BookService bookService) {
@@ -62,13 +62,13 @@ public class BookController {
     public ResponseEntity<Book> addBook(@RequestBody @Valid Book book) {
 
         if (book == null) {
-            log.warn("No data provided");
+            log.warn("Wrong input");
             return new ResponseEntity<>(BAD_REQUEST);
         }
 
         bookService.addBook(book);
-        log.info("Book of id {} was saved", book.getId());
-        return new ResponseEntity<>(OK);
+        log.info("Book with id: " + book.getId() + " was saved");
+        return new ResponseEntity<>(book, OK);
     }
 
     @PutMapping("/{id}")
