@@ -2,11 +2,9 @@ package com.jakubwalkowicz.library.controller;
 
 import com.jakubwalkowicz.library.model.Borrower;
 import com.jakubwalkowicz.library.service.BorrowerService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

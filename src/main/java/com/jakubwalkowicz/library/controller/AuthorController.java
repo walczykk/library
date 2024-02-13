@@ -5,7 +5,6 @@ import com.jakubwalkowicz.library.service.AuthorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +35,9 @@ public class AuthorController {
             log.warn("Wrong author properties provided");
         }
         authorService.add(author);
-        log.info("Author with id: " + author.getId() + " was saved");
+        if (author != null) {
+            log.info("Author with id: " + author.getId() + " was saved");
+        }
         return new ResponseEntity<>(author, CREATED);
     }
 

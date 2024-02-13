@@ -1,13 +1,10 @@
 package com.jakubwalkowicz.library.controller;
 
-import com.jakubwalkowicz.library.model.Author;
 import com.jakubwalkowicz.library.model.Book;
 import com.jakubwalkowicz.library.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

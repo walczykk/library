@@ -3,7 +3,6 @@ package com.jakubwalkowicz.library.service;
 import com.jakubwalkowicz.library.model.Borrower;
 import com.jakubwalkowicz.library.repository.BorrowerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
