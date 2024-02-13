@@ -1,6 +1,9 @@
-package com.booklibrary.booklibrary.model;
+package com.jakubwalkowicz.library.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -11,10 +14,9 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Book {
-
+@AllArgsConstructor
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,15 +25,10 @@ public class Book {
     @NotNull
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_id", nullable = true)
-    private Author author;
+    @NotBlank
+    @NotNull
+    private String surname;
 
     @NotNull
-    private String publishingHouse;
-
-    private LocalDate releaseDate;
-
-    private String genre;
-
+    private LocalDate dateOfBirth;
 }
